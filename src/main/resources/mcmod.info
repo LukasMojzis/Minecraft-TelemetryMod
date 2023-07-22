@@ -1,0 +1,18 @@
+[
+  {
+    "modid": "telemetrymod",
+    "name": "Telemetry Mod",
+    "description": "Player and World telemetry mod.",
+    "version": "${version}",
+    "mcversion": "${mcversion}",
+    "url": "https://github.com/LukasMojzis/Minecraft-TelemetryMod",
+    "updateUrl": "https://github.com/LukasMojzis/Minecraft-TelemetryMod",
+    "authorList": [
+      "LukasMojzis"
+    ],
+    "credits": "Lukáš Mojžíš",
+    "logoFile": "",
+    "screenshots": [],
+    "dependencies": []
+  }
+]

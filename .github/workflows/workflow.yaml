@@ -1,0 +1,65 @@
+name: Gradle Build & CI/CD
+
+on:
+  push:
+    branches:
+      - '*'
+    tags:
+      - '*'
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK 1.8
+        uses: actions/setup-java@v2
+        with:
+          java-version: '8'
+          distribution: 'adopt'
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+      - name: Build with Gradle
+        run: ./gradlew build
+      - name: Attach commit to version
+        run: |
+          MOD_BASENAME=$(./gradlew properties --no-daemon -q | grep "modbasename:" | awk '{print $2}')
+          MC_VERSION=$(./gradlew properties --no-daemon -q | grep "mcversion:" | awk '{print $2}')
+          if [[ $GITHUB_REF == refs/tags/* ]]; then
+            VERSION_SUFFIX=${GITHUB_REF#refs/tags/}
+          else
+            VERSION_SUFFIX=$(git rev-parse --short HEAD)
+          fi
+          NEW_NAME="$MOD_BASENAME-$MC_VERSION-$VERSION_SUFFIX"
+          echo "NEW_NAME=$NEW_NAME" >> $GITHUB_ENV
+      - name: Rename Jar
+        run: mv build/libs/*.jar build/libs/${{ env.NEW_NAME }}.jar
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ env.NEW_NAME }}.jar
+          path: build/libs/${{ env.NEW_NAME }}.jar
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+        if: startsWith(github.ref, 'refs/tags/')
+      - name: Upload Release Asset
+        id: upload_release_asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./build/libs/${{ env.NEW_NAME }}.jar
+          asset_name: ${{ env.NEW_NAME }}.jar
+          asset_content_type: application/zip
+        if: startsWith(github.ref, 'refs/tags/')
