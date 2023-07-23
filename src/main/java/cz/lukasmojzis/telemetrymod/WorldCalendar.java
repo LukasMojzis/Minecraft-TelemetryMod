@@ -10,7 +10,7 @@ public class WorldCalendar {
      * @return the total world time ticks
      */
     public long getTotalWorldTicks() {
-        return TelemetryMod.overworld.getTotalWorldTime();
+        return TelemetryMod.currentWorld.getTotalWorldTime();
     }
 
 }

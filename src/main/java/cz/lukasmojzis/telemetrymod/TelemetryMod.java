@@ -46,7 +46,7 @@ public class TelemetryMod {
     public static Logger logger;
     static Minecraft minecraft;
     static MinecraftServer server;
-    static World overworld;
+    static World currentWorld;
     static TelemetryWebSocketClient telemetryClient;
 
     /**
@@ -58,7 +58,7 @@ public class TelemetryMod {
     @EventHandler
     public static void onServerStarting(FMLServerStartingEvent event) {
         server = FMLCommonHandler.instance().getMinecraftServerInstance();
-        overworld = server.getWorld(DimensionType.OVERWORLD.getId());
+        currentWorld = server.getWorld(DimensionType.OVERWORLD.getId());
         calendar = new WorldCalendar();
     }
 
@@ -186,7 +186,7 @@ public class TelemetryMod {
     @EventHandler
     public void onServerStopped(FMLServerStoppedEvent event) {
         server = null;
-        overworld = null;
+        currentWorld = null;
         calendar = null;
     }
 
