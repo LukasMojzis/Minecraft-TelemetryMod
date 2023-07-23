@@ -41,7 +41,6 @@ public class TelemetryMod {
 
     @Mod.Instance(MODID)
     public static TelemetryMod instance;
-    public static WorldCalendar calendar;
     public static Logger logger;
     static Minecraft minecraft;
     static MinecraftServer server;
@@ -57,7 +56,6 @@ public class TelemetryMod {
     @EventHandler
     public static void onServerStarting(FMLServerStartingEvent event) {
         server = FMLCommonHandler.instance().getMinecraftServerInstance();
-        calendar = new WorldCalendar();
     }
 
     /**
@@ -184,7 +182,6 @@ public class TelemetryMod {
     @EventHandler
     public void onServerStopped(FMLServerStoppedEvent event) {
         server = null;
-        calendar = null;
     }
 
 }

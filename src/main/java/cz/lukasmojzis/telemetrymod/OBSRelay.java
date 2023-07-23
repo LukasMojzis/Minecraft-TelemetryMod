@@ -111,7 +111,7 @@ public class OBSRelay {
     private static void onConnect(EntityPlayer player) {
         connected = true;
         setStatus("connected", player);
-        ticksWhenConnect = TelemetryMod.calendar.getTotalWorldTicks();
+        ticksWhenConnect = WorldCalendar.getTotalWorldTicks();
         findOrCreateColorCorrectionFilter();
     }
 

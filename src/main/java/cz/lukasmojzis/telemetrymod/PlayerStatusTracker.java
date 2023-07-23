@@ -185,7 +185,7 @@ public class PlayerStatusTracker {
     private void updateField(PlayerProperty property, Object newValue) {
         Object current = state.get(property);
         if (!Objects.equals(current, newValue)) {
-            PlayerStateUpdate playerStateUpdate = new PlayerStateUpdate(player.getName(), TelemetryMod.calendar.getTotalWorldTicks(), property, current, newValue);
+            PlayerStateUpdate playerStateUpdate = new PlayerStateUpdate(player.getName(), WorldCalendar.getTotalWorldTicks(), property, current, newValue);
             TransactionController.addTransactionToBundle(playerStateUpdate);
             state.put(property, newValue);
         }

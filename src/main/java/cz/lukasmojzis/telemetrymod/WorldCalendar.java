@@ -36,7 +36,7 @@ public class WorldCalendar {
      *
      * @return the total world time ticks
      */
-    public long getTotalWorldTicks() {
+    public static long getTotalWorldTicks() {
         return TelemetryMod.currentWorld.getTotalWorldTime();
     }
 

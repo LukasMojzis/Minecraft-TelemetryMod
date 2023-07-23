@@ -80,7 +80,7 @@ public class OverlayController {
      */
     private static int renderPlayTime(int x, int y) {
         String playTimeLabel = I18n.format("stat.playOneMinute");
-        long ticks = TelemetryMod.calendar.getTotalWorldTicks();
+        long ticks = WorldCalendar.getTotalWorldTicks();
         long totalMillisPassed = (ticks * 50);
         long totalSeconds = totalMillisPassed / 1000;
         long totalMinutes = totalSeconds / 60;

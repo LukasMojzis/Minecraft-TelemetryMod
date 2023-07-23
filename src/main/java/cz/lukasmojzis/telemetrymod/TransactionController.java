@@ -118,7 +118,7 @@ public class TransactionController {
      * Private helper method to periodically check and report on the queue size.
      */
     private static void checkAndReportQueueSize() {
-        if (transactionCount.get() > MAX_TRANSACTION_COUNT_BEFORE_WARNING && TelemetryMod.calendar.getTotalWorldTicks() % WARNING_TRANSACTION_COUNT_FREQUENCY == 0) {
+        if (transactionCount.get() > MAX_TRANSACTION_COUNT_BEFORE_WARNING && WorldCalendar.getTotalWorldTicks() % WARNING_TRANSACTION_COUNT_FREQUENCY == 0) {
             TelemetryMod.sendMessage(String.format("There are more than %d transaction bundles waiting to be sent.", transactionCount.get()), null);
         }
     }
