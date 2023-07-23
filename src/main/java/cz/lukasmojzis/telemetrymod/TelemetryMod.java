@@ -7,7 +7,6 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.management.PlayerList;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.world.DimensionType;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.FMLCommonHandler;
@@ -58,7 +57,6 @@ public class TelemetryMod {
     @EventHandler
     public static void onServerStarting(FMLServerStartingEvent event) {
         server = FMLCommonHandler.instance().getMinecraftServerInstance();
-        currentWorld = server.getWorld(DimensionType.OVERWORLD.getId());
         calendar = new WorldCalendar();
     }
 
@@ -186,7 +184,6 @@ public class TelemetryMod {
     @EventHandler
     public void onServerStopped(FMLServerStoppedEvent event) {
         server = null;
-        currentWorld = null;
         calendar = null;
     }
 

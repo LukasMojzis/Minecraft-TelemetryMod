@@ -4,6 +4,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
+import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -132,5 +133,16 @@ public class EventDispatcher {
     public static void onRenderGameOverlay(RenderGameOverlayEvent.Text event) {
         OverlayController.renderGameOverlay();
     }
+
+    @SubscribeEvent
+    public static void onWorldLoad(WorldEvent.Load event) {
+        TelemetryMod.currentWorld = event.getWorld();
+    }
+
+    @SubscribeEvent
+    public static void onWorldUnload(WorldEvent.Unload event) {
+        TelemetryMod.currentWorld = null;
+    }
+
 
 }
